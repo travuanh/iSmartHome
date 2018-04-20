@@ -77,7 +77,7 @@ class HttpWSSProtocol(websockets.WebSocketServerProtocol):
                     # {"object":"switch","query":"?"}
                     print({"object": "switch", "value": "state", "query": "?"})
                     jsonRequest = {"object": "switch", "value": "state", "query": "?"}
-            with open('data.json', 'w') as outfile:
+            with open('data_json.json', 'w') as outfile:
                 json.dump(json.dumps(jsonRequest), outfile)
                 #await self.rwebsocket.send(alexaRequest)
             await self.rwebsocket.send(json.dumps(jsonRequest))
@@ -104,7 +104,7 @@ def updateData(data):
 async def ws_handler(websocket, path):
     game_name = 'g1'
     try:
-        with open('data.json') as data_file:
+        with open('data_json.json') as data_file:
             data = json.load(data_file)
         HttpWSSProtocol.rwebsocket = websocket
         await websocket.send(data)
